@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    char titulo[100];
+    char autor[100];
+    int ano_publicacao;
+} Livro;
+
+void preencherLivro(Livro *livro) {
+    printf("Digite o título do livro: ");
+    fgets(livro->titulo, sizeof(livro->titulo), stdin);
+
+    printf("Digite o autor do livro: ");
+    fgets(livro->autor, sizeof(livro->autor), stdin);
+
+    printf("Digite o ano de publicação do livro: ");
+    scanf("%d", &livro->ano_publicacao);
+}
+
+int main() {
+    Livro meuLivro;
+
+    preencherLivro(&meuLivro);
+
+    printf("\nDados do livro:\n");
+    printf("Título: %s", meuLivro.titulo);
+    printf("Autor: %s", meuLivro.autor);
+    printf("Ano de publicação: %d\n", meuLivro.ano_publicacao);
+
+    return 0;
+}
