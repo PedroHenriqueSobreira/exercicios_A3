@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    char titulo[100];
+    char autor[100];
+    int ano_publicacao;
+} Livro;
+
+
+typedef struct {
+    Livro *livros; // Ponteiro para a primeira posição da tabela
+    int tamanho;   // Tamanho da tabela
+} TabelaLivros;
+
+
+void preencherTabelaLivros(TabelaLivros *tabela) {
+    printf("Quantos livros deseja adicionar? ");
+    scanf("%d", &tabela->tamanho);
+
+    tabela->livros = (Livro *)malloc(tabela->tamanho * sizeof(Livro));
+
+    if (tabela->livros == NULL) {
+        printf("Erro ao alocar memória.\n");
+        exit(1);
+    }
+
+    for (int i = 0; i < tabela->tamanho; i++) {
+        printf("\nLivro %d:\n", i + 1);
+        printf("Digite o título do livro: ");
+        getchar(); // Limpar o buffer do teclado
+        fgets(tabela->livros[i].titulo, sizeof(tabela->livros[i].titulo), stdin);
+
+        printf("Digite o autor do livro: ");
+        fgets(tabela->livros[i].autor, sizeof(tabela->livros[i].autor), stdin);
+
+        printf("Digite o ano de publicação do livro: ");
+        scanf("%d", &tabela->livros[i].ano_publicacao);
+    }
+}
+
+int main() {
+    TabelaLivros tabela;
+
+    preencherTabelaLivros(&tabela);
+
+    printf("\nTabela de Livros:\n");
+    for (int i = 0; i < tabela.tamanho; i++) {
+        printf("\nLivro %d:\n", i + 1);
+        printf("Título: %s", tabela.livros[i].titulo);
+        printf("Autor: %s", tabela.livros[i].autor);
+        printf("Ano de publicação: %d\n", tabela.livros[i].ano_publicacao);
+    }
+
+    free(tabela.livros);
+
+    return 0;
+}
