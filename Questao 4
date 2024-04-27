@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+size_t strlen(const char *s) {
+    const char *p = s; 
+
+    while (*p != '\0') {
+        p++; 
+    }
+
+    return p - s;
+}
+
+int main() {
+    char str[] = "Hello, world!"; 
+    size_t length = strlen(str); 
+
+    printf("Comprimento da string: %zu\n", length); 
+
+    return 0;
+}
