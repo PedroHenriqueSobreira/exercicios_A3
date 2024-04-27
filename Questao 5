@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char *monet(double v) {
+    char *result = malloc(20 * sizeof(char));
+
+    sprintf(result, "R$ %.2f", v);
+
+    return result;
+}
+
+int main() {
+    double valor = 1234.56;
+    char *representacao = monet(valor);
+
+    printf("%s\n", representacao);
+
+    free(representacao);
+
+    return 0;
+}
