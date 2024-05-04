@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>
+
+char* monet(double v) {
+
+    setlocale(LC_ALL, "pt_BR.UTF-8");
+
+    char *formatted = (char *)malloc(20 * sizeof(char));
+    if (formatted == NULL) {
+        printf("Erro ao alocar memória!\n");
+        exit(EXIT_FAILURE);
+    }
+
+    sprintf(formatted, "R$ %.2f", v);
+
+    return formatted;
+}
+
+int main() {
+    double valor = 1234.56;
+
+    char *resultado = monet(valor);
+    printf("%s\n", resultado);
+
+    free(resultado); // Libera a memória alocada
+
+    return 0;
+}
