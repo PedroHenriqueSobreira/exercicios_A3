@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+float calcular(float num1, char operador, float num2) {
+    switch(operador) {
+        case '+':
+            return num1 + num2;
+        case '-':
+            return num1 - num2;
+        case '*':
+            return num1 * num2;
+        case '/':
+            if (num2 != 0) {
+                return num1 / num2;
+            } else {
+                printf("Erro: Divisão por zero!\n");
+                exit(EXIT_FAILURE);
+            }
+        default:
+            printf("Operador inválido!\n");
+            exit(EXIT_FAILURE);
+    }
+}
+
+int main(int argc, char *argv[]) {
+    if (argc != 4) {
+        printf("Uso: CALC <valor> <operador> <valor>\n");
+        return EXIT_FAILURE;
+    }
+
+    float num1 = atof(argv[1]);
+    char operador = argv[2][0];
+    float num2 = atof(argv[3]);
+
+    float resultado = calcular(num1, operador, num2);
+
+    printf("Resultado: %.2f\n", resultado);
+
+    return EXIT_SUCCESS;
+}
