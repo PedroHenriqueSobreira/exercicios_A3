@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    char nome[50];
+    int idade;
+    float altura;
+} Pessoa;
+
+int compararPorNome(const void *a, const void *b) {
+    return strcmp(((Pessoa *)a)->nome, ((Pessoa *)b)->nome);
+}
+
+int compararPorIdade(const void *a, const void *b) {
+    return (((Pessoa *)a)->idade - ((Pessoa *)b)->idade);
+}
+
+int compararPorAltura(const void *a, const void *b) {
+    float diferenca = ((Pessoa *)a)->altura - ((Pessoa *)b)->altura;
+    if (diferenca < 0) return -1;
+    if (diferenca > 0) return 1;
+    return 0;
+}
+
+int main() {
+
+    Pessoa pessoas[] = {
+        {"Joao", 30, 1.75},
+        {"Maria", 25, 1.65},
+        {"Pedro", 35, 1.80},
+        {"Ana", 28, 1.70},
+    };
+    int num_pessoas = sizeof(pessoas) / sizeof(Pessoa);
+
+    qsort(pessoas, num_pessoas, sizeof(Pessoa), compararPorNome);
+    printf("Ordenado por nome:\n");
+    for (int i = 0; i < num_pessoas; i++) {
+        printf("%s\n", pessoas[i].nome);
+    }
+    printf("\n");
+
+    qsort(pessoas, num_pessoas, sizeof(Pessoa), compararPorIdade);
+    printf("Ordenado por idade:\n");
+    for (int i = 0; i < num_pessoas; i++) {
+        printf("%s - %d anos\n", pessoas[i].nome, pessoas[i].idade);
+    }
+    printf("\n");
+
+    qsort(pessoas, num_pessoas, sizeof(Pessoa), compararPorAltura);
+    printf("Ordenado por altura:\n");
+    for (int i = 0; i < num_pessoas; i++) {
+        printf("%s - %.2fm\n", pessoas[i].nome, pessoas[i].altura);
+    }
+    printf("\n");
+
+    return 0;
+}
