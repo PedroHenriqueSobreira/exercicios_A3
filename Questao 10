@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* strsub(const char *s, int i, int n) {
+    int len = strlen(s);
+    if (i < 0 || i >= len || n <= 0) {
+        return NULL; // Verifica se os índices são válidos
+    }
+
+    n = (n < len - i) ? n : len - i;
+
+    char *sub = (char *)malloc((n + 1) * sizeof(char));
+    if (sub == NULL) {
+        printf("Erro ao alocar memória!\n");
+        exit(EXIT_FAILURE);
+    }
+
+    strncpy(sub, s + i, n);
+    sub[n] = '\0'; // Adiciona o terminador nulo
+
+    return sub;
+}
+
+int main() {
+    const char *str = "Hello, world!";
+    int start = 7; // Início da substring
+    int length = 5; // Número máximo de caracteres na substring
+
+    char *substring = strsub(str, start, length);
+    if (substring != NULL) {
+        printf("Substring: %s\n", substring);
+        free(substring); // Libera a memória alocada para a substring
+    } else {
+        printf("Índices inválidos ou memória insuficiente.\n");
+    }
+
+    return 0;
+}
